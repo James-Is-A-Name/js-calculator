@@ -112,9 +112,13 @@ function equate() {
 
 
 function invokePercent() {
-    currentValue = parseFloat(currentValue)/100 * currentTotal;
-    displayOutput = currentValue;
-    updateDisplay();
+    // check if currentvalue is NaN ("" or ".")
+    // if so, 
+    if (!isNaN(parseFloat(currentValue))) {
+        currentValue = parseFloat(currentValue) / 100 * currentTotal;
+        displayOutput = currentValue;
+        updateDisplay();
+    }
 }
 
 function setNextOperation(evt) {
@@ -128,7 +132,7 @@ function clearValues() {
     displayOutput = 0;
     nextOperation = "+";
     updateDisplay();
-    
+
 }
 
 
