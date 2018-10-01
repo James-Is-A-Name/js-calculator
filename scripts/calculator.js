@@ -16,6 +16,8 @@ function startCalc() {
 
     addOperationButtonEvent();
 
+    addEqualsButtonEvent();
+
     addClearButtonEvent();
 }
 
@@ -30,9 +32,19 @@ function appendDigit(evt) {
 
     displayOutput = currentValue;
 
-    currentValue = "" + parseFloat(currentValue);
+    // currentValue = "" + parseFloat(currentValue);
 
     updateDisplay();
+}
+
+function addDecimal() {
+    // ensure not already a decimal in current number string
+    if (currentValue.indexOf('.') < 0) {
+        // add "." to currentValue string
+        currentValue += ".";
+        displayOutput = currentValue;
+        updateDisplay();
+    }
 }
 
 function equate() {
@@ -51,10 +63,6 @@ function equate() {
 }
 
 
-
-
-
-
 function addNumberButtonEvents() {
     // get array of number elements
     let numbersButtonList = Array.from(document.getElementsByClassName("digit"));
@@ -65,19 +73,34 @@ function addNumberButtonEvents() {
 }
 
 
-
 function addDecimalButtonEvent() {
-
+    let decimalButton = document.getElementById('buttonDecimal');
+    decimalButton.addEventListener('click', addDecimal);
 }
 
 function addPercentButtonEvent() {
+    let percentButton = document.getElementById('buttonPercent');
+    percentButton.addEventListener('click', invokePercent);
 }
 
 function addOperationButtonEvent() {
-
+    // get array of number elements
+    let operationButtonList = Array.from(document.getElementsByClassName("operation"));
+    operationButtonList.forEach(function (btn) {
+        btn.addEventListener('click', setNextOperation);
+    }
+    )
 }
 
+function addEqualsButtonEvent() {
+    let equalButton = document.getElementById('buttonEquals');
+    equalButton.addEventListener('click', equate);
+}
+
+
 function addClearButtonEvent() {
+    let clearButton = document.getElementById('buttonClear');
+    clearButton.addEventListener('click', clearValues)
 }
 
 
