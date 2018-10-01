@@ -4,9 +4,9 @@ var displayOutput = "";
 var currentValue = "";
 var currentTotal = 0;
 
-document.addEventListener("DOMContentLoaded",startCalc);
+document.addEventListener("DOMContentLoaded", startCalc);
 
-function startCalc(){
+function startCalc() {
 
     addNumberButtonEvents();
 
@@ -19,33 +19,34 @@ function startCalc(){
     addClearButtonEvent();
 }
 
-function updateDisplay(){
+function updateDisplay() {
     document.getElementById("numDisplay").innerHTML = displayOutput;
 }
 
-function appendDigit(newDigit){
+function appendDigit(evt) {
+    let newDigit = evt.target.attributes["data-id"].value;
 
     currentValue += newDigit;
 
     displayOutput = currentValue;
 
     currentValue = "" + parseFloat(currentValue);
-    
+
     updateDisplay();
 }
 
-function equate(){
+function equate() {
 
     //TODO ADD ALTERNATE OPERATORS = - .....
 
-    if(currentValue !== ""){
+    if (currentValue !== "") {
         currentTotal += parseFloat(currentValue);
     }
 
     currentValue = "";
 
     displayOutput = "" + currentTotal;
-    
+
     updateDisplay();
 }
 
@@ -54,22 +55,29 @@ function equate(){
 
 
 
-function addNumberButtonEvents(){
-    let numbersButtonList = document.getElementsByClassName("digit");
+function addNumberButtonEvents() {
+    // get array of number elements
+    let numbersButtonList = Array.from(document.getElementsByClassName("digit"));
+    numbersButtonList.forEach(function (btn) {
+        btn.addEventListener('click', appendDigit);
+    }
+    )
 }
 
 
-function addDecimalButtonEvent(){
+
+function addDecimalButtonEvent() {
+
 }
 
-function addPercentButtonEvent(){
+function addPercentButtonEvent() {
 }
 
-function addOperationButtonEvent(){
-    
+function addOperationButtonEvent() {
+
 }
 
-function addClearButtonEvent(){
+function addClearButtonEvent() {
 }
 
 
