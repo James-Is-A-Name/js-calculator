@@ -91,7 +91,7 @@ function equate() {
 
     //TODO ADD ALTERNATE OPERATORS = - ..... James is doing this
 
-    if (currentValue !== "") {
+    if (!isNaN(parseFloat(currentValue))) {
         currentTotal += parseFloat(currentValue);
     }
 
