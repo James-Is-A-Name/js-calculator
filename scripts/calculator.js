@@ -1,8 +1,9 @@
 
-var displayOutput = "";
+var displayOutput;
 
 var currentValue = "";
 var currentTotal = 0;
+var nextOperation = "+";
 
 document.addEventListener("DOMContentLoaded", startCalc);
 
@@ -20,6 +21,53 @@ function startCalc() {
 
     addClearButtonEvent();
 }
+
+// Add event listeners
+
+
+function addNumberButtonEvents() {
+    // get array of number elements
+    let numbersButtonList = Array.from(document.getElementsByClassName("digit"));
+    numbersButtonList.forEach(function (btn) {
+        btn.addEventListener('click', appendDigit);
+    }
+    )
+}
+
+
+function addDecimalButtonEvent() {
+    let decimalButton = document.getElementById('buttonDecimal');
+    decimalButton.addEventListener('click', addDecimal);
+}
+
+function addPercentButtonEvent() {
+    let percentButton = document.getElementById('buttonPercent');
+    percentButton.addEventListener('click', invokePercent);
+}
+
+function addOperationButtonEvent() {
+    // get array of number elements
+    let operationButtonList = Array.from(document.getElementsByClassName("operation"));
+    operationButtonList.forEach(function (btn) {
+        btn.addEventListener('click', setNextOperation);
+    }
+    )
+}
+
+function addEqualsButtonEvent() {
+    let equalButton = document.getElementById('buttonEquals');
+    equalButton.addEventListener('click', equate);
+}
+
+
+function addClearButtonEvent() {
+    let clearButton = document.getElementById('buttonClear');
+    clearButton.addEventListener('click', clearValues)
+}
+
+
+
+// main logic functions
 
 function updateDisplay() {
     document.getElementById("numDisplay").innerHTML = displayOutput;
@@ -63,44 +111,24 @@ function equate() {
 }
 
 
-function addNumberButtonEvents() {
-    // get array of number elements
-    let numbersButtonList = Array.from(document.getElementsByClassName("digit"));
-    numbersButtonList.forEach(function (btn) {
-        btn.addEventListener('click', appendDigit);
-    }
-    )
+function invokePercent() {
+    currentValue = parseFloat(currentValue)/100 * currentTotal;
+    displayOutput = currentValue;
+    updateDisplay();
 }
 
-
-function addDecimalButtonEvent() {
-    let decimalButton = document.getElementById('buttonDecimal');
-    decimalButton.addEventListener('click', addDecimal);
+function setNextOperation(evt) {
+    equate();
+    nextOperation = evt.target.attributes["data-id"].value;
 }
 
-function addPercentButtonEvent() {
-    let percentButton = document.getElementById('buttonPercent');
-    percentButton.addEventListener('click', invokePercent);
-}
-
-function addOperationButtonEvent() {
-    // get array of number elements
-    let operationButtonList = Array.from(document.getElementsByClassName("operation"));
-    operationButtonList.forEach(function (btn) {
-        btn.addEventListener('click', setNextOperation);
-    }
-    )
-}
-
-function addEqualsButtonEvent() {
-    let equalButton = document.getElementById('buttonEquals');
-    equalButton.addEventListener('click', equate);
-}
-
-
-function addClearButtonEvent() {
-    let clearButton = document.getElementById('buttonClear');
-    clearButton.addEventListener('click', clearValues)
+function clearValues() {
+    currentTotal = 0;
+    currentValue = "";
+    displayOutput = 0;
+    nextOperation = "+";
+    updateDisplay();
+    
 }
 
 
