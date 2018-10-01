@@ -1,6 +1,3 @@
-
-var displayOutput;
-
 var currentValue = "";
 var currentTotal = 0;
 var nextOperation = "+";
@@ -69,8 +66,8 @@ function addClearButtonEvent() {
 
 // main logic functions
 
-function updateDisplay() {
-    document.getElementById("numDisplay").innerHTML = displayOutput;
+function updateDisplay(displayValue) {
+    document.getElementById("numDisplay").innerHTML = displayValue;
 }
 
 function appendDigit(evt) {
@@ -78,11 +75,7 @@ function appendDigit(evt) {
 
     currentValue += newDigit;
 
-    displayOutput = currentValue;
-
-    // currentValue = "" + parseFloat(currentValue);
-
-    updateDisplay();
+    updateDisplay(currentValue);
 }
 
 function addDecimal() {
@@ -90,14 +83,13 @@ function addDecimal() {
     if (currentValue.indexOf('.') < 0) {
         // add "." to currentValue string
         currentValue += ".";
-        displayOutput = currentValue;
-        updateDisplay();
+        updateDisplay(currentValue);
     }
 }
 
 function equate() {
 
-    //TODO ADD ALTERNATE OPERATORS = - .....
+    //TODO ADD ALTERNATE OPERATORS = - ..... James is doing this
 
     if (currentValue !== "") {
         currentTotal += parseFloat(currentValue);
@@ -105,9 +97,10 @@ function equate() {
 
     currentValue = "";
 
-    displayOutput = "" + currentTotal;
+    //may not need to ensure current total passed to displayOutput is a string
+    //displayOutput = "" + currentTotal;
 
-    updateDisplay();
+    updateDisplay(currentTotal);
 }
 
 
@@ -116,8 +109,7 @@ function invokePercent() {
     // if so, 
     if (!isNaN(parseFloat(currentValue))) {
         currentValue = parseFloat(currentValue) / 100 * currentTotal;
-        displayOutput = currentValue;
-        updateDisplay();
+        updateDisplay(currentValue);
     }
 }
 
@@ -129,10 +121,8 @@ function setNextOperation(evt) {
 function clearValues() {
     currentTotal = 0;
     currentValue = "";
-    displayOutput = 0;
     nextOperation = "+";
-    updateDisplay();
-
+    updateDisplay(0);
 }
 
 
