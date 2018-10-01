@@ -97,8 +97,6 @@ function addDecimal() {
 
 function equate() {
 
-    //TODO ADD ALTERNATE OPERATORS = - .....
-
     if (currentValue !== "") {
 
         switch (nextOperation){
