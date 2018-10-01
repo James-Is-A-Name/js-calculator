@@ -100,7 +100,25 @@ function equate() {
     //TODO ADD ALTERNATE OPERATORS = - .....
 
     if (currentValue !== "") {
-        currentTotal += parseFloat(currentValue);
+
+        switch (nextOperation){
+            case "*":{
+                currentTotal *= parseFloat(currentValue);
+                break;
+            }
+            case "/":{
+                currentTotal /= parseFloat(currentValue);
+                break;
+            }
+            case "-":{
+                currentTotal -= parseFloat(currentValue);
+                break;
+            }
+            case "+":{
+                currentTotal += parseFloat(currentValue);
+                break;
+            }
+        }
     }
 
     currentValue = "";
