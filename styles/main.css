@@ -24,24 +24,29 @@
 
 
     }
-    #numDisplay{
+    #displayArea{
         background: gray;
 
         overflow: hidden;
 
         border-radius: 1rem;
-        
         padding-right: 2rem;
+        
         padding-top: auto;
         padding-bottom: auto; 
         
-        font-family: "orbitron", sans-serif;
-        font-size: 3rem;
         text-align: right;
-        
+
         grid-row: 1;
         grid-column: 1/5;
     }
+    #displayValue{
+        
+        font-family: "orbitron", sans-serif;
+        font-size: 3rem;
+        width: 100%;
+    }
+
     #buttonClear{
         background: white;
         grid-row: 2;
