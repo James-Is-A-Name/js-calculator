@@ -20,8 +20,6 @@ function startCalc() {
 }
 
 // Add event listeners
-
-
 function addNumberButtonEvents() {
     // get array of number elements
     let numbersButtonList = Array.from(document.getElementsByClassName("digit"));
