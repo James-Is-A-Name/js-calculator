@@ -89,10 +89,26 @@ function addDecimal() {
 
 function equate() {
 
-    //TODO ADD ALTERNATE OPERATORS = - ..... James is doing this
-
+  // Check currentValue is able to be a number
     if (!isNaN(parseFloat(currentValue))) {
-        currentTotal += parseFloat(currentValue);
+         switch (nextOperation){
+            case "*":{
+                currentTotal *= parseFloat(currentValue);
+                break;
+            }
+            case "/":{
+                currentTotal /= parseFloat(currentValue);
+                break;
+            }
+            case "-":{
+                currentTotal -= parseFloat(currentValue);
+                break;
+            }
+            case "+":{
+                currentTotal += parseFloat(currentValue);
+                break;
+            }
+        }
     }
 
     currentValue = "";
