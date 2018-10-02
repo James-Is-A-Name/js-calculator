@@ -13,7 +13,7 @@
         padding-left: 1rem;
         padding-right: 1rem;
 
-        border-radius: 5px;
+        border-radius: 1rem;
 
         grid-gap: 5px;
 
@@ -88,4 +88,14 @@
     #buttonClear {
         background-color: red;
         color: white;
+    }
+
+
+
+    
+    #branding{
+        color: white;
+        grid-row: 7;
+        grid-column: 1/5;
+        padding: auto;
     }
