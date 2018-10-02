@@ -67,7 +67,7 @@ function addClearButtonEvent() {
 // main logic functions
 
 function updateDisplay(displayValue) {
-    document.getElementById("numDisplay").innerHTML = displayValue;
+    document.getElementById("displayValue").innerHTML = displayValue;
 }
 
 function appendDigit(evt) {

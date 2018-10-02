@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
 
@@ -12,8 +13,10 @@
 </head>
 <body>
     <div class="calculator">
-        <div id="numDisplay">0</div>
-
+        <div id="displayArea">
+          <span id="displayValue">0</span>
+        </div>
+        
         <button class="calcButton ac" id="buttonClear">AC</button>
 
         <button class="calcButton percent" id="buttonPercent">%</button>
@@ -38,6 +41,8 @@
         <button class="calcButton decimal" id="buttonDecimal">.</button>
         
         <button class="calcButton equals" id="buttonEquals">=</button>
+
+        <div id="branding"><p>A Logo or Something</p></div>
 
     </div>
 </body>
