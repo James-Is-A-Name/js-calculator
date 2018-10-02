@@ -9,6 +9,12 @@
         height: 600px;
         width: 500px;
 
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        border-radius: 5px;
+
         grid-gap: 5px;
 
         grid-template-columns: repeat(4, 1fr);
@@ -16,9 +22,22 @@
 
         text-align: center;
 
+
     }
     #numDisplay{
         background: gray;
+
+        overflow: hidden;
+
+        border-radius: 1rem;
+        
+        padding-right: 2rem;
+        padding-top: auto;
+        padding-bottom: auto; 
+        
+        font-family: "orbitron", sans-serif;
+        font-size: 3rem;
+        text-align: right;
         
         grid-row: 1;
         grid-column: 1/5;
