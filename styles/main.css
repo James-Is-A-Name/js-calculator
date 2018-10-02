@@ -41,7 +41,7 @@
         grid-column: 1/5;
     }
     #displayValue{
-        
+
         font-family: "orbitron", sans-serif;
         font-size: 3rem;
         width: 100%;
@@ -100,6 +100,7 @@
     
     #branding{
         color: white;
+        font-size: 2rem;
         grid-row: 7;
         grid-column: 1/5;
         padding: auto;
