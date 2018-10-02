@@ -59,8 +59,14 @@
     .calcButton{
         border: solid 1px;
         background: white;
+        border-radius: 10px;
         
         padding-top: 30%;
         
         vertical-align: middle;
+    }
+
+    #buttonClear {
+        background-color: red;
+        color: white;
     }
