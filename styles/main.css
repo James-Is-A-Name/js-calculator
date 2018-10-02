@@ -1,5 +1,8 @@
 
 
+    html {
+        
+    }
 
     .calculator{
         display: grid;
@@ -45,15 +48,17 @@
     }
 
     .calcButton{
-        font-size: 2rem;
+        font-family: 'K2D', sans-serif;
+        font-size: 2.5rem;
         font-weight: bold;
         background: white;
         border-radius: 10px;
+        margin: 3px;
     }
 
-    .calcButton:hover, .calcButton:focus {
+    .calcButton:hover {
         background-color: lightgray;
-        font-size: 2.5rem;
+        font-size: 3rem;
     }
 
     .calcButton:active {
@@ -65,7 +70,7 @@
         background-color: beige;
     }
 
-    .operation:hover, .operation:focus {
+    .operation:hover {
         background-color: darkkhaki;
     }
 
@@ -73,7 +78,7 @@
         background-color: rosybrown;
     }
 
-    .percent:hover, .percent:focus {
+    .percent:hover {
         background-color: chocolate;
     }
 
@@ -81,7 +86,10 @@
         background-color: darkseagreen;
     }
 
-    .equals:hover, .equals:focus {
+    .equals:hover, {
         background-color: lightseagreen;
     }
 
+    .operation:focus, .percent:focus .equals:focus, .calcButton:focus {
+        border: dashed 1px gray;
+    }
