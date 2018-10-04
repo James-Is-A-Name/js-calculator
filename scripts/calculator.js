@@ -120,6 +120,66 @@ function equate() {
 }
 
 
+
+
+function calculateLogically(operationArray){
+    let newArray = operationArray.reduce( (equation,operation) => evaluateDivisonMultiplication(equation,operation) , []);
+    return calculate(newArray);
+}
+function calculate(operationArray){
+    let output = operationArray.reduce((total,x) => applyOperation(total,x.operation,x.value) , 0)
+    return output;
+}
+function evaluateDivisonMultiplication(equation,segment){
+
+
+    if(segment.operation === '*' ){
+        let previousOperation = equation[equation.length - 1].operation;
+        let previousValue= equation[equation.length - 1].value;
+
+        //Arrays of objects point to the objects so you have to give it a new object not alter the object
+        equation[equation.length - 1] = { operation:previousOperation, value:(previousValue * segment.value)};
+    }
+    else if(segment.operation === '/'){
+        let previousOperation = equation[equation.length - 1].operation;
+        let previousValue= equation[equation.length - 1].value;
+
+        //Arrays of objects point to the objects so you have to give it a new object not alter the object
+        equation[equation.length - 1] = { operation:previousOperation, value:(previousValue / segment.value)};
+    }
+    else{
+        equation.push(segment)
+    }
+    return equation;
+}
+
+
+
+function applyOperation(total,operation,value){
+    switch (operation){
+        case "*":{
+            total *= parseFloat(value);
+            break;
+        }
+        case "/":{
+            total /= parseFloat(value);
+            break;
+        }
+        case "-":{
+            total -= parseFloat(value);
+            break;
+        }
+        default:{
+            total += parseFloat(value);
+        }
+    }
+
+    return total;
+}
+
+
+
+
 function invokePercent() {
     // check if currentvalue is NaN ("" or ".")
     // if so, 
