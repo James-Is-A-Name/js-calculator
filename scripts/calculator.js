@@ -80,6 +80,7 @@ function appendDigit(evt) {
 
     if(!isNaN(parseFloat(currentValue))){
         currentEquation[currentEquation.length-1].value = parseFloat(currentValue);
+        currentEquation[currentEquation.length-1].valueNotSet = false;
     }
 
     updateDisplay(currentValue);
@@ -195,7 +196,13 @@ function invokePercent() {
 function setNextOperation(evt) {
     equate();
     nextOperation = evt.target.attributes["data-id"].value;
-    currentEquation.push({operation:nextOperation,value:0});
+
+    if(currentEquation[currentEquation.length-1].valueNotSet){
+        currentEquation[currentEquation.length-1].operation = nextOperation
+    }
+    else{
+        currentEquation.push({operation:nextOperation ,value:0 ,valueNotSet:true});
+    }
 }
 
 function clearValues() {
