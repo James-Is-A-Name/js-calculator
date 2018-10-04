@@ -176,7 +176,9 @@ function applyOperation(total,operation,value){
     }
     return total;
 }
-
+function equationAsString(equation){
+    return equation.slice(1).reduce((output,x) => (output+" "+x.operation+" "+x.value) ,(""+equation[0].value));
+}
 
 
 
