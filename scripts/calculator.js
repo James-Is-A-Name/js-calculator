@@ -70,6 +70,7 @@ function addClearButtonEvent() {
 
 function updateDisplay(displayValue) {
     document.getElementById("displayValue").innerHTML = displayValue;
+    document.getElementById("displayEquation").innerHTML = equationAsString(currentEquation);
 }
 
 function appendDigit(evt) {
