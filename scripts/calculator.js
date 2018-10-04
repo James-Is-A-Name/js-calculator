@@ -2,6 +2,8 @@ var currentValue = "";
 var currentTotal = 0;
 var nextOperation = "+";
 
+var currentEquation = [{operation:"+",value:0}];
+
 document.addEventListener("DOMContentLoaded", startCalc);
 
 function startCalc() {
@@ -75,6 +77,10 @@ function appendDigit(evt) {
 
     currentValue += newDigit;
 
+    if(!isNaN(parseFloat(currentValue))){
+        currentEquation[currentEquation.length-1].value = parseFloat(currentValue);
+    }
+
     updateDisplay(currentValue);
 }
 
@@ -131,8 +137,6 @@ function calculate(operationArray){
     return output;
 }
 function evaluateDivisonMultiplication(equation,segment){
-
-
     if(segment.operation === '*' ){
         let previousOperation = equation[equation.length - 1].operation;
         let previousValue= equation[equation.length - 1].value;
@@ -152,9 +156,6 @@ function evaluateDivisonMultiplication(equation,segment){
     }
     return equation;
 }
-
-
-
 function applyOperation(total,operation,value){
     switch (operation){
         case "*":{
@@ -173,7 +174,6 @@ function applyOperation(total,operation,value){
             total += parseFloat(value);
         }
     }
-
     return total;
 }
 
@@ -192,12 +192,14 @@ function invokePercent() {
 function setNextOperation(evt) {
     equate();
     nextOperation = evt.target.attributes["data-id"].value;
+    currentEquation.push({operation:nextOperation,value:0});
 }
 
 function clearValues() {
     currentTotal = 0;
     currentValue = "";
     nextOperation = "+";
+    currentEquation = [{operation:"+",value:0}];
     updateDisplay(0);
 }
 
