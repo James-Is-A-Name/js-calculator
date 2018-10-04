@@ -3,6 +3,7 @@ var currentTotal = 0;
 var nextOperation = "+";
 
 var currentEquation = [{operation:"+",value:0}];
+var evaluateLogically = false;
 
 document.addEventListener("DOMContentLoaded", startCalc);
 
@@ -19,6 +20,8 @@ function startCalc() {
     addEqualsButtonEvent();
 
     addClearButtonEvent();
+    
+    addLogicButtonEvent();
 }
 
 // Add event listeners
@@ -62,6 +65,12 @@ function addEqualsButtonEvent() {
 function addClearButtonEvent() {
     let clearButton = document.getElementById('buttonClear');
     clearButton.addEventListener('click', clearValues)
+}
+
+
+function addLogicButtonEvent() {
+    let logicButton = document.getElementById('buttonCalcuationType');
+    logicButton.addEventListener('click', toggleCalculationType)
 }
 
 
@@ -124,12 +133,31 @@ function equate() {
     //may not need to ensure current total passed to displayOutput is a string
     //displayOutput = "" + currentTotal;
 
-    updateDisplay(currentTotal);
+    if(evaluateLogically){    
+        updateDisplay(calculateLogically(currentEquation));
+    }
+    else{
+        updateDisplay(currentTotal);
+    }
 }
 
 
 
 
+function toggleCalculationType(){
+    setCalculations(!evaluateLogically);
+}
+function setCalculations(useLogicalCalculation){
+
+    if(useLogicalCalculation){
+        document.getElementById("buttonCalcuationType").style.color = "gray";
+    }
+    else{
+        document.getElementById("buttonCalcuationType").style.color = "black";
+    }
+
+    evaluateLogically = useLogicalCalculation;
+}
 function calculateLogically(operationArray){
     let newArray = operationArray.reduce( (equation,operation) => evaluateDivisonMultiplication(equation,operation) , []);
     return calculate(newArray);
@@ -202,6 +230,13 @@ function setNextOperation(evt) {
     }
     else{
         currentEquation.push({operation:nextOperation ,value:0 ,valueNotSet:true});
+    }
+
+    if(evaluateLogically){    
+        updateDisplay(calculateLogically(currentEquation));
+    }
+    else{
+        updateDisplay(currentTotal);
     }
 }
 
