@@ -2,6 +2,9 @@ var currentValue = "";
 var currentTotal = 0;
 var nextOperation = "+";
 
+var currentEquation = [{operation:"+",value:0}];
+var evaluateLogically = false;
+
 document.addEventListener("DOMContentLoaded", startCalc);
 
 function startCalc() {
@@ -17,6 +20,8 @@ function startCalc() {
     addEqualsButtonEvent();
 
     addClearButtonEvent();
+    
+    addLogicButtonEvent();
 }
 
 // Add event listeners
@@ -63,17 +68,29 @@ function addClearButtonEvent() {
 }
 
 
+function addLogicButtonEvent() {
+    let logicButton = document.getElementById('buttonCalcuationType');
+    logicButton.addEventListener('click', toggleCalculationType)
+}
+
+
 
 // main logic functions
 
 function updateDisplay(displayValue) {
     document.getElementById("displayValue").innerHTML = displayValue;
+    document.getElementById("displayEquation").innerHTML = equationAsString(currentEquation);
 }
 
 function appendDigit(evt) {
     let newDigit = evt.target.attributes["data-id"].value;
 
     currentValue += newDigit;
+
+    if(!isNaN(parseFloat(currentValue))){
+        currentEquation[currentEquation.length-1].value = parseFloat(currentValue);
+        currentEquation[currentEquation.length-1].valueNotSet = false;
+    }
 
     updateDisplay(currentValue);
 }
@@ -116,8 +133,83 @@ function equate() {
     //may not need to ensure current total passed to displayOutput is a string
     //displayOutput = "" + currentTotal;
 
-    updateDisplay(currentTotal);
+    if(evaluateLogically){    
+        updateDisplay(calculateLogically(currentEquation));
+    }
+    else{
+        updateDisplay(currentTotal);
+    }
 }
+
+
+
+
+function toggleCalculationType(){
+    setCalculations(!evaluateLogically);
+}
+function setCalculations(useLogicalCalculation){
+
+    if(useLogicalCalculation){
+        document.getElementById("buttonCalcuationType").style.color = "gray";
+    }
+    else{
+        document.getElementById("buttonCalcuationType").style.color = "black";
+    }
+
+    evaluateLogically = useLogicalCalculation;
+}
+function calculateLogically(operationArray){
+    let newArray = operationArray.reduce( (equation,operation) => evaluateDivisonMultiplication(equation,operation) , []);
+    return calculate(newArray);
+}
+function calculate(operationArray){
+    let output = operationArray.reduce((total,x) => applyOperation(total,x.operation,x.value) , 0)
+    return output;
+}
+function evaluateDivisonMultiplication(equation,segment){
+    if(segment.operation === '*' ){
+        let previousOperation = equation[equation.length - 1].operation;
+        let previousValue= equation[equation.length - 1].value;
+
+        //Arrays of objects point to the objects so you have to give it a new object not alter the object
+        equation[equation.length - 1] = { operation:previousOperation, value:(previousValue * segment.value)};
+    }
+    else if(segment.operation === '/'){
+        let previousOperation = equation[equation.length - 1].operation;
+        let previousValue= equation[equation.length - 1].value;
+
+        //Arrays of objects point to the objects so you have to give it a new object not alter the object
+        equation[equation.length - 1] = { operation:previousOperation, value:(previousValue / segment.value)};
+    }
+    else{
+        equation.push(segment)
+    }
+    return equation;
+}
+function applyOperation(total,operation,value){
+    switch (operation){
+        case "*":{
+            total *= parseFloat(value);
+            break;
+        }
+        case "/":{
+            total /= parseFloat(value);
+            break;
+        }
+        case "-":{
+            total -= parseFloat(value);
+            break;
+        }
+        default:{
+            total += parseFloat(value);
+        }
+    }
+    return total;
+}
+function equationAsString(equation){
+    return equation.slice(1).reduce((output,x) => (output+" "+x.operation+" "+x.value) ,(""+equation[0].value));
+}
+
 
 
 function invokePercent() {
@@ -132,12 +224,27 @@ function invokePercent() {
 function setNextOperation(evt) {
     equate();
     nextOperation = evt.target.attributes["data-id"].value;
+
+    if(currentEquation[currentEquation.length-1].valueNotSet){
+        currentEquation[currentEquation.length-1].operation = nextOperation
+    }
+    else{
+        currentEquation.push({operation:nextOperation ,value:0 ,valueNotSet:true});
+    }
+
+    if(evaluateLogically){    
+        updateDisplay(calculateLogically(currentEquation));
+    }
+    else{
+        updateDisplay(currentTotal);
+    }
 }
 
 function clearValues() {
     currentTotal = 0;
     currentValue = "";
     nextOperation = "+";
+    currentEquation = [{operation:"+",value:0}];
     updateDisplay(0);
 }
 
