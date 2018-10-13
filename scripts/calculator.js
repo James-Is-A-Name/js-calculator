@@ -27,8 +27,7 @@ function addNumberButtonEvents() {
     let numbersButtonList = Array.from(document.getElementsByClassName("digit"));
     numbersButtonList.forEach(function (btn) {
         btn.addEventListener('click', appendDigit);
-    }
-    )
+    });
 }
 
 
@@ -47,8 +46,7 @@ function addOperationButtonEvent() {
     let operationButtonList = Array.from(document.getElementsByClassName("operation"));
     operationButtonList.forEach(function (btn) {
         btn.addEventListener('click', setNextOperation);
-    }
-    )
+    });
 }
 
 function addEqualsButtonEvent() {
@@ -71,7 +69,8 @@ function updateDisplay(displayValue) {
 }
 
 function appendDigit(evt) {
-    let newDigit = evt.target.attributes["data-id"].value;
+    //let newDigit = evt.target.attributes["data-id"].value;
+    let newDigit = evt.target.value;
 
     currentValue += newDigit;
 
@@ -131,7 +130,8 @@ function invokePercent() {
 
 function setNextOperation(evt) {
     equate();
-    nextOperation = evt.target.attributes["data-id"].value;
+    //nextOperation = evt.target.attributes["data-id"].value;
+    nextOperation = evt.target.value;
 }
 
 function clearValues() {
